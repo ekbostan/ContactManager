@@ -28,6 +28,10 @@ app.post("/contacts", (req, res) => {
   res.status(201).json({ message: "Contact added successfully." });
 });
 
+app.get("/contacts", (req, res) => {
+  res.status(200).json(contacts);
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
