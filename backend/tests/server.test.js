@@ -38,4 +38,26 @@ describe("Contacts API", () => {
     expect(response.status).toBe(200);
     expect(response.body.length).toBeGreaterThan(0);
   });
+  it("should search contacts by name or email", async () => {
+    const response = await request(app)
+      .get("/contacts/search")
+      .query({ query: "Jane" });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: "EKB",
+          email: "erolkaan@gmail.com",
+        }),
+      ])
+    );
+  });
+
+  it("should return an error for missing search query", async () => {
+    const response = await request(app).get("/contacts/search");
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: "Query parameter is required." });
+  });
 });
