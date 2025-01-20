@@ -34,6 +34,24 @@ const App = () => {
     setFilteredContacts(results);
   };
 
+  const handleDeleteContact = async (email) => {
+    try {
+      const response = await fetch(`http://localhost:5001/contacts/${email}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete contact.");
+      }
+      const updatedContacts = contacts.filter(
+        (contact) => contact.email !== email
+      );
+      setContacts(updatedContacts);
+      setFilteredContacts(updatedContacts);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       <header className="bg-blue-600 w-full py-4 shadow-md">
@@ -47,7 +65,10 @@ const App = () => {
           onSearchResults={handleSearchResults}
           allContacts={contacts}
         />
-        <ContactList contacts={filteredContacts} />
+        <ContactList
+          contacts={filteredContacts}
+          onDeleteContact={handleDeleteContact}
+        />
       </main>
     </div>
   );
