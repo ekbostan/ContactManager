@@ -18,10 +18,17 @@ Contact List Manager application that allows users to:
    cd backend
    ```
 2. Install dependencies:
+  ```bash
    npm install
-3. Start the server:
+   ```
+4. Start the server:
+   ```bash
    node server.js
-
+   ```
+5. Run the tests:
+    ```bash
+   npx jest
+   ```
 ### Frontend
 
 1. Navigate to the `frontend/` directory:
@@ -29,9 +36,13 @@ Contact List Manager application that allows users to:
    cd frontend
    ```
 2. Install dependencies:
+    ```bash
    npm install
+   ```
 3. Start the server:
+   ```bash
    npm start
+   ```
 
 ### Features
 
