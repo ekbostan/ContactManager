@@ -39,13 +39,23 @@ app.get("/contacts/search", (req, res) => {
     return res.status(400).json({ message: "Query parameter is required." });
   }
 
-  const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.name.toLowerCase().includes(query.toLowerCase()) ||
-      contact.email.toLowerCase().includes(query.toLowerCase())
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(query.toLowerCase())
   );
 
   res.status(200).json(filteredContacts);
+});
+
+app.delete("/contacts/:email", (req, res) => {
+  const { email } = req.params;
+
+  const index = contacts.findIndex((contact) => contact.email === email);
+  if (index === -1) {
+    return res.status(404).json({ message: "Contact not found." });
+  }
+
+  contacts.splice(index, 1);
+  res.status(200).json({ message: "Contact deleted successfully." });
 });
 
 app.listen(port, () => {
