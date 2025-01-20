@@ -60,4 +60,32 @@ describe("Contacts API", () => {
     expect(response.status).toBe(400);
     expect(response.body).toEqual({ message: "Query parameter is required." });
   });
+  
+  it("should delete a contact", async () => {
+    await request(app)
+      .post("/contacts")
+      .send({ name: "John Doe", email: "john.doe@example.com" });
+
+    const response = await request(app).delete("/contacts/john.doe@example.com");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Contact deleted successfully." });
+
+    const allContactsResponse = await request(app).get("/contacts");
+    expect(allContactsResponse.body).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: "John Doe",
+          email: "john.doe@example.com",
+        }),
+      ])
+    );
+  });
+
+  it("should return an error when trying to delete a non-existent contact", async () => {
+    const response = await request(app).delete("/contacts/nonexistent@example.com");
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ message: "Contact not found." });
+  });
 });
