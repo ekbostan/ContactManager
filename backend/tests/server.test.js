@@ -41,7 +41,7 @@ describe("Contacts API", () => {
   it("should search contacts by name or email", async () => {
     const response = await request(app)
       .get("/contacts/search")
-      .query({ query: "Jane" });
+      .query({ query: "EKB" });
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
