@@ -39,8 +39,10 @@ app.get("/contacts/search", (req, res) => {
     return res.status(400).json({ message: "Query parameter is required." });
   }
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(query.toLowerCase())
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.name.toLowerCase().includes(query.toLowerCase()) ||
+      contact.email.toLowerCase().includes(query.toLowerCase())
   );
 
   res.status(200).json(filteredContacts);
