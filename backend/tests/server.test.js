@@ -32,4 +32,10 @@ describe("Contacts API", () => {
       message: "Contact with this email already exists.",
     });
   });
+  it("should retrieve all contacts", async () => {
+    const response = await request(app).get("/contacts");
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThan(0);
+  });
 });
