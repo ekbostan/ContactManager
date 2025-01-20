@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
+import SearchBar from "./components/SearchBar";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -29,15 +30,23 @@ const App = () => {
     setFilteredContacts((prev) => [...prev, contact]);
   };
 
+  const handleSearchResults = (results) => {
+    setFilteredContacts(results);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
-      <header className="bg-blue-400 w-full py-4 shadow-md">
+      <header className="bg-blue-600 w-full py-4 shadow-md">
         <h1 className="text-3xl text-center text-white font-bold">
           Contact Manager
         </h1>
       </header>
       <main className="w-full max-w-4xl p-6 mt-6 bg-white rounded-lg shadow-lg">
         <ContactForm onAddContact={handleAddContact} />
+        <SearchBar
+          onSearchResults={handleSearchResults}
+          allContacts={contacts}
+        />
         <ContactList contacts={filteredContacts} />
       </main>
     </div>
