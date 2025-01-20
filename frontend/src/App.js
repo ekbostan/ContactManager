@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import ContactForm from "./components/ContactForm";
+import ContactList from "./components/ContactList";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -23,6 +24,11 @@ const App = () => {
     fetchContacts();
   }, []);
 
+  const handleAddContact = (contact) => {
+    setContacts((prev) => [...prev, contact]);
+    setFilteredContacts((prev) => [...prev, contact]);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       <header className="bg-blue-400 w-full py-4 shadow-md">
@@ -30,7 +36,10 @@ const App = () => {
           Contact Manager
         </h1>
       </header>
-      <main className="w-full max-w-4xl p-6 mt-6 bg-white rounded-lg shadow-lg"></main>
+      <main className="w-full max-w-4xl p-6 mt-6 bg-white rounded-lg shadow-lg">
+        <ContactForm onAddContact={handleAddContact} />
+        <ContactList contacts={filteredContacts} />
+      </main>
     </div>
   );
 };

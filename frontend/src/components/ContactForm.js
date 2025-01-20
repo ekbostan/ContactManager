@@ -33,22 +33,35 @@ const ContactForm = ({ onAddContact }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Contact</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <button type="submit">Add Contact</button>
+    <form className="space-y-4 mb-6" onSubmit={handleSubmit}>
+      <h2 className="text-xl font-semibold text-gray-700">Add Contact</h2>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+      <div>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="flex items-center justify-center">
+        <button
+          type="submit"
+          className="w-1/4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+        >
+          Add Contact
+        </button>
+      </div>
     </form>
   );
 };
